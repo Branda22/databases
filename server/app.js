@@ -18,6 +18,19 @@ app.set("port", 3000);
 app.use(morgan('dev'));
 app.use(parser.json());
 
+app.all('*', function(req, res, next){
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'content-type, accept');
+  res.header('Access-Control-Max-Age', 10);
+  
+  if(req.method === 'OPTIONS') {
+    res.status(200).send(null);
+  } else {
+    return next();
+  }
+});
+
 // Set up our routes
 app.use("/classes", router);
 
@@ -29,4 +42,5 @@ if (!module.parent) {
   app.listen(app.get("port"));
   console.log("Listening on", app.get("port"));
 }
+
 
