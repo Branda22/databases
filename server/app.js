@@ -12,7 +12,7 @@ var app = express();
 module.exports.app = app;
 
 // Set what we are listening on.
-app.set("port", 3000);
+app.set("port", 1337);
 
 // Logging and parsing
 app.use(morgan('dev'));
@@ -23,7 +23,7 @@ app.all('*', function(req, res, next){
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'content-type, accept');
   res.header('Access-Control-Max-Age', 10);
-  
+
   if(req.method === 'OPTIONS') {
     res.status(200).send(null);
   } else {

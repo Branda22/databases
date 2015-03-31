@@ -5,7 +5,7 @@ $(function() {
   app = {
 //TODO: The current 'addFriend' function just adds the class 'friend'
 //to all messages sent by the user
-    server: 'http://127.0.0.1:3000/',
+    server: 'http://127.0.0.1:1337/',
     username: 'anonymous',
     roomname: 'lobby',
     lastMessageId: 0,
@@ -62,8 +62,10 @@ $(function() {
         contentType: 'application/json',
         success: function(data) {
           data = JSON.parse(data);
+          console.log(data, typeof data)
+
           // Don't bother if we have nothing to work with
-          if (!data.results || !data.results.length) { 
+          if (!data.results || !data.results.length) {
             app.stopSpinner();
             return;
           }
@@ -73,7 +75,8 @@ $(function() {
           
           app.stopSpinner();
           // Only bother updating the DOM if we have a new message
-          if (mostRecentMessage.id !== app.lastMessageId || app.roomname !== displayedRoom) {
+          console.log(app.roomname)
+          if (mostRecentMessage.ID !== app.lastMessageId || app.roomname !== displayedRoom) {
             // Update the UI with the fetched rooms
             app.populateRooms(data.results);
 
@@ -81,7 +84,7 @@ $(function() {
             app.populateMessages(data.results, animate);
 
             // Store the ID of the most recent message
-            app.lastMessageId = mostRecentMessage.id;
+            app.lastMessageId = mostRecentMessage.ID;
           }
         },
         error: function(data) {

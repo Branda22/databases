@@ -12,7 +12,6 @@ module.exports = {
       })
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-      console.log('POST HAS BEEN FIRED');
       models.messages.post(req.body, function(err){
         res.sendStatus(err ? 401 : 200);
       })
